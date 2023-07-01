@@ -1,7 +1,7 @@
 # create My SQL database instance
 resource "google_sql_database_instance" "my_sql" {
   name                 = "test-instance-mysql"
-  project              = "${var.project}"
+  project              = "${var.project_name}"
   region               = "${var.region}"
   database_version     = "MYSQL_8_0"
   
@@ -45,7 +45,7 @@ resource "google_sql_database_instance" "my_sql" {
 # create database
 resource "google_sql_database" "my_sql_db" {
   name      = "test-db"
-  project   = "${var.project}"
+  project   = "${var.project_name}"
   instance  = "${google_sql_database_instance.my_sql.name}"
   charset   = ""
   collation = ""
@@ -54,7 +54,7 @@ resource "google_sql_database" "my_sql_db" {
 # create user
 resource "google_sql_user" "my-sql" {
   name     = "dbadmin"
-  project  = "${var.project}"
+  project  = "${var.project_name}"
   instance = "${google_sql_database_instance.my_sql.name}"
   host     = "%"
   password = "Test@2023"
